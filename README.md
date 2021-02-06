@@ -1,8 +1,8 @@
 # mydouyinfor8
 
-# 一、进入项目
+## 进入项目
 
-1. 安装`node.js`环境，在项目文件夹下进入控制台（shift+鼠标右键，点击打开Powershell窗口）。![avatar](\ReadmePics\进入项目.png)
+1. 安装`node.js`环境，在项目文件夹下进入控制台（shift+鼠标右键，点击打开Powershell窗口） ![avatar](./doc/进入项目.png)
 
    ``` 
    npm start
@@ -11,7 +11,7 @@
 
    
 
-# 二、需要安装的库
+# 需要安装的库
 
 1. `antd` 组件库
 
@@ -39,34 +39,26 @@
 
    `griffith`播放器，git项目链接：https://github.com/zhihu/griffith
 
-   ``` 
-   npm install griffith//这是我找到的另一个视频播放器
+   ```
+   npm install griffith //这是我找到的另一个视频播放器
    ```
 
    
 
-5. 如有遗漏的，请根据报错提示安装对应的库。
+5. 如有遗漏的，请根据报错提示安装对应的库 
 
-# 三、记录
+## Todos
 
-## 20210206
-
-1. 已实现功能
-
-   1.通过<video>标签实现视频播放。
-
-   2.通过右上角的按钮实现视频的切换。
-
-   3.实现点赞与取消的功能。
-
-   4.实现页面的登陆页面。
-
-2. 待解决问题
-
-   1.登陆后的sign传回主页面。
-
-   2.上下滑切换视频。
-
-   3.使用西瓜播放器播放视频。
+- [x] 通过`<video>`标签实现视频播放 (2021/02/06)
+- [x] 通过右上角的按钮实现视频的切换  (2021/02/06)
+- [x] 实现点赞与取消的功能 (2021/02/06)
+- [x] 实现页面的登陆页面 (2021/02/06)
+- [ ] 登陆后的sign传回主页面
+- [ ] 上下滑切换视频
+- [ ] 使用西瓜播放器播放视频
    
-      
+# Contributing
+
+暂时采取下文所述的 Github flow. 提交 PR 后至少请一位同学进行 review, 通过 review 后再 merge 到 C 端项目前端主分支 `C-side-frontend-main` 中.
+
+http://www.ruanyifeng.com/blog/2015/12/git-workflow.html
