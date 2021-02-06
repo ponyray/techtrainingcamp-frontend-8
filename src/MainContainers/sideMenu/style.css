@@ -1,0 +1,15 @@
+
+.videoPlay .sideMenu .sideMenus {
+
+    /* border: 2px solid greenyellow; */
+    height: 25%;
+    width: 100%;
+    margin-top: 2px;
+}
+
+#Num {
+    /* border: 1px solid ; */
+    text-align: center;
+    margin-top: -7px;
+    color: rgb(244,246,245);
+}
