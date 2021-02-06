@@ -12,7 +12,7 @@ import VideoInstruction from "./MainContainers/videoInstruction/videoInstruction
 import "./style.css";
 import { Link } from "react-router-dom";
 
-import { getNextVideoAPI } from "./data-access/api/live";
+import { getLastVideoAPI, getNextVideoAPI } from "./data-access/api/main";
 // let player = new Player({
 //     id: 'vs',
 //     url: 'https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-720p.mp4'
@@ -57,52 +57,35 @@ class Main extends Component {
   getLastVideo() {
     // alert('正在获取上一个视频')
 
-    var url =
-      "http://bytedancecamp.rooftopj.cn:8080/video/lastVideo/" +
-      this.state.sign;
-    axios.get(url).then((res) => {
-      console.log(res);
-
-      console.log(res.data.code);
-
-      switch (res.data.code) {
-        case 203: {
-          alert("请登录");
-          this.props.history.push("/login");
-          break;
-        }
-        case 202: {
-          alert(res.data.message);
-          break;
-        }
-        default: {
-          console.log(res.data.data.video.id);
-          console.log(res.data.data.video.url);
+    getLastVideoAPI(this.state.sign)
+      .then(data => {
+          console.log(data.video.id);
+          console.log(data.video.url);
 
           console.log("url改变之前的url为");
           console.log(this.state.sources.sd.play_url);
 
           this.setState(() => {
             return {
-              id: res.data.data.video.id,
-              author: res.data.data.video.authorName,
-              description: res.data.data.video.description,
-              tagList: res.data.data.video.tags,
-              likes: res.data.data.video.likeNum,
-              isLike: res.data.data.video.isLike,
-              comments: res.data.data.video.commentNum,
+              id: data.video.id,
+              author: data.video.authorName,
+              description: data.video.description,
+              tagList: data.video.tags,
+              likes: data.video.likeNum,
+              isLike: data.video.isLike,
+              comments: data.video.commentNum,
               sources: {
                 sd: {
-                  play_url: res.data.data.video.url,
+                  play_url: data.video.url,
                 },
               },
             };
           });
           console.log("url改变完成");
           console.log(this.state.sources.sd.play_url);
-        }
-      }
-    });
+   
+      })
+    .catch(err => console.log(err));
   }
 
   getNextVideo() {

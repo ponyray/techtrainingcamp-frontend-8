@@ -8,3 +8,10 @@ export function getNextVideoAPI(sign) {
     url: `/video/getNewVideo/${sign}`,
   })
 }
+
+export function getLastVideoAPI(sign) {
+  return request({
+    method: 'get',
+    url: `/video/lastVideo/${sign}`
+  })
+}
