@@ -1,0 +1,93 @@
+body {
+    /* border: 1px solid blue; */
+    background: white;
+    margin: 0px;
+    /* margin-right: 0px;
+    margin-left: 0px; */
+    width: 100%;
+}
+
+.header {
+    /* border: 3px solid blue; */
+    height: 50px;
+}
+
+.header .liveEntrance {
+    /* border: 3px solid red; */
+    position: absolute;
+    left: 10px;
+    height: 50px;
+    width: 50px;
+    margin-top: 3px;
+    margin-left: 20px;
+}
+
+.header .notice {
+    /* border: 3px solid red; */
+    position: absolute;
+    margin-left: 43%;
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.header .notice .text {
+    margin-top: 0px;
+}
+
+.header .getVideo {
+    /* border: 3px solid red; */
+    position: absolute;
+    right: 10px;
+    margin-top: -3px;
+    margin-right: 20px;
+    height: 50px;
+    width: 100px;
+}
+
+.header .getVideo .btn{
+    height: 40px;
+    width: 30px;
+    margin-left: 15px;
+    margin-top: 8px;
+    background: ghostwhite;
+    border: 0px;
+    font-size: 20px;
+    text-align: center;
+}
+
+.videoPlay {
+    /* border: 1px solid red; */
+    height: 650px;
+    position: relative;
+    margin: 0px;
+}
+
+#playWindow {
+    /* border: 1px solid blue; */
+    /* position:absolute; */
+    background: black;
+    height: 100%;
+    width: 100%;
+}
+
+.videoPlay .videoInstruction {
+    /* border: 1px solid red; */
+    color: grey;
+    height: 10%;
+    width: 100%;
+    position:absolute;
+    bottom: 80px;
+}
+
+.videoPlay .sideMenu {
+
+    /* border: 2px solid red; */
+    width: 50px;
+    height: 48%;
+    position:absolute;
+    bottom: 17%;
+    right: 2%;
+}
