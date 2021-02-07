@@ -1,0 +1,8 @@
+.exit-btn{
+position: fixed;
+bottom: 0;
+right:0;
+}
+#liveplay{
+    z-index: 0;
+}

@@ -9,11 +9,15 @@
     "antd": "^4.11.2",
     "axios": "^0.21.1",
     "griffith": "^1.10.0",
+    "hls": "0.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "smoothscroll-polyfill": "^0.4.4",
     "web-vitals": "^0.2.4",
-    "xgplayer": "^2.17.6",
+    "xgplayer": "^2.17.12",
+    "xgplayer-flv": "^2.4.4",
+    "xgplayer-hls": "^2.4.4",
     "xgplayer-react": "^2.3.0"
   },
   "scripts": {
