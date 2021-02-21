@@ -13,6 +13,7 @@ import "./style.css";
 import { Link } from "react-router-dom";
 
 import { getLastVideoAPI, getNextVideoAPI } from "./data-access/api/main";
+import { UserContext } from "./context";
 // let player = new Player({
 //     id: 'vs',
 //     url: 'https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-720p.mp4'
@@ -26,7 +27,6 @@ class Main extends Component {
     this.getLastVideo = this.getLastVideo.bind(this);
 
     this.state = {
-      sign: "14ab9420-eb61-42e5-82f4-069007d934c6101884276101884276",
       videoInstruction: "这是一个视频简介。",
       id: 1,
       author: "字节君",
@@ -54,43 +54,41 @@ class Main extends Component {
   // getVideoInfo(){
   // }
 
-  getLastVideo() {
+  getLastVideo(sign) {
     // alert('正在获取上一个视频')
 
-    getLastVideoAPI(this.state.sign)
-      .then(data => {
-          console.log(data.video.id);
-          console.log(data.video.url);
+    getLastVideoAPI(sign)
+      .then((data) => {
+        console.log(data.video.id);
+        console.log(data.video.url);
 
-          console.log("url改变之前的url为");
-          console.log(this.state.sources.sd.play_url);
+        console.log("url改变之前的url为");
+        console.log(this.state.sources.sd.play_url);
 
-          this.setState(() => {
-            return {
-              id: data.video.id,
-              author: data.video.authorName,
-              description: data.video.description,
-              tagList: data.video.tags,
-              likes: data.video.likeNum,
-              isLike: data.video.isLike,
-              comments: data.video.commentNum,
-              sources: {
-                sd: {
-                  play_url: data.video.url,
-                },
+        this.setState(() => {
+          return {
+            id: data.video.id,
+            author: data.video.authorName,
+            description: data.video.description,
+            tagList: data.video.tags,
+            likes: data.video.likeNum,
+            isLike: data.video.isLike,
+            comments: data.video.commentNum,
+            sources: {
+              sd: {
+                play_url: data.video.url,
               },
-            };
-          });
-          console.log("url改变完成");
-          console.log(this.state.sources.sd.play_url);
-   
+            },
+          };
+        });
+        console.log("url改变完成");
+        console.log(this.state.sources.sd.play_url);
       })
-    .catch(err => console.log(err));
+      .catch((err) => console.log(err));
   }
 
-  getNextVideo() {
-    console.log(getNextVideoAPI(this.state.sign));
-    getNextVideoAPI(this.state.sign)
+  getNextVideo(sign) {
+    getNextVideoAPI(sign)
       .then((data) => {
         console.log(data);
 
@@ -159,42 +157,6 @@ class Main extends Component {
     // });
   }
 
-  componentWillMount() {
-    console.log("componentWillMount");
-    // console.log(this.state.sources.sd.play_url)
-
-    // var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
-    // axios.get(url)
-    //     .then( (res) => {
-    //         console.log(res)
-    //         console.log(res.data.data.video.id)
-
-    //         console.log(res.data.data.video.url)
-
-    //         console.log("url改变之前的url为")
-    //         console.log(this.state.sources.sd.play_url)
-
-    //         this.setState( () => {
-    //             return {
-    //                 Id: res.data.data.video.id,
-    //                 author: res.data.data.video.authorName,
-    //                 description: res.data.data.video.description,
-    //                 tagList: res.data.data.video.tags,
-    //                 likes: res.data.data.video.likeNum,
-    //                 comments: res.data.data.video.commentNum,
-    //                 sources: {
-    //                     sd: {
-    //                         play_url: res.data.data.video.url
-    //             }
-    //         }
-    //             }
-    //         })
-
-    //         console.log('url改变完成')
-    //         console.log(this.state.sources.sd.play_url)
-    //     })
-  }
-
   componentDidMount() {
     // var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
     // axios.get(url)
@@ -213,64 +175,68 @@ class Main extends Component {
 
   render() {
     return (
-      <Fragment>
-        <div className="header">
-          <div className="liveEntrance">
-            <LiveEntrance sign={this.state.sign} />
-          </div>
-          <div className="notice">
-            <p className="text">关注</p>
-          </div>
-          <div className="getVideo">
-            <button
-              className="btn"
-              id="getLastVideo"
-              onClick={this.getLastVideo}
-            >
-              上
-            </button>
-            <button
-              className="btn"
-              id="getNextVideo"
-              onClick={this.getNextVideo}
-            >
-              下
-            </button>
-          </div>
-        </div>
-        <div class="videoPlay" id="vs">
-          {console.log("视频加载开始")}
-          <video
-            id="playWindow"
-            src={this.state.sources.sd.play_url}
-            controls
-          ></video>
-          {console.log("视频加载结束")}
-          {/* <div className='play'>
+      <UserContext.Consumer>
+        {({ sign, setSign, username, setUsername }) => (
+          <Fragment>
+            <div className="header">
+              <div className="liveEntrance">
+                <LiveEntrance sign={sign} />
+              </div>
+              <div className="notice">
+                <p className="text">关注</p>
+              </div>
+              <div className="getVideo">
+                <button
+                  className="btn"
+                  id="getLastVideo"
+                  onClick={() => this.getLastVideo(sign)}
+                >
+                  上
+                </button>
+                <button
+                  className="btn"
+                  id="getNextVideo"
+                  onClick={() => this.getNextVideo(sign)}
+                >
+                  下
+                </button>
+              </div>
+            </div>
+            <div class="videoPlay" id="vs">
+              {console.log("视频加载开始")}
+              <video
+                id="playWindow"
+                src={this.state.sources.sd.play_url}
+                controls
+              ></video>
+              {console.log("视频加载结束")}
+              {/* <div className='play'>
                         {console.log('视频加载开始')}
                         <Player sources={this.state.sources} />
                         <video id='playWindow' src={this.state.sources.sd.play_url} controls></video>
                         {console.log('视频加载结束')}
                     </div> */}
-          <div className="videoInstruction">
-            <VideoInstruction
-              author={this.state.author}
-              description={this.state.description}
-              tagList={this.state.tagList}
-            />
-          </div>
-          <div className="sideMenu">
-            <SideMenu
-              id={this.state.id}
-              sign={this.state.sign}
-              likes={this.state.likes}
-              comments={this.state.comments}
-              repost={1235}
-              isLike={this.state.isLike}
-            />
-          </div>
-        </div>
-      </Fragment>
+              <div className="videoInstruction">
+                <VideoInstruction
+                  author={this.state.author}
+                  description={this.state.description}
+                  tagList={this.state.tagList}
+                />
+              </div>
+              <div className="sideMenu">
+                <SideMenu
+                  id={this.state.id}
+                  sign={sign}
+                  likes={this.state.likes}
+                  comments={this.state.comments}
+                  repost={1235}
+                  isLike={this.state.isLike}
+                />
+              </div>
+            </div>
+          </Fragment>
+        )}
+      </UserContext.Consumer>
     );
   }
 }
