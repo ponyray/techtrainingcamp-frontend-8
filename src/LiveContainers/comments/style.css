@@ -1,0 +1,99 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+.comment{
+    width: 70%;
+    height: 200px;
+    /* border:solid white 2px; */
+    /* z-index: 999; */
+    position: absolute;
+    margin: 100px 0 0 20px;
+    bottom: 7%;
+    left: 0px;
+   
+}
+.comment-wrap{
+    height: 200px;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling:touch;
+    -webkit-mask-image: -webkit-gradient(linear, 0 13%, 0 0, from(#fff), to(rgba(255, 255, 255, 0)));
+    transform: scale(0.8) translate(-10%);
+}
+.comment-wrap li{
+    text-align: left;
+    line-height: 30px;
+    padding-left: 10px;
+    background: rgba(255, 255, 255, 0.3);
+    margin-top: 5px;
+    border-radius: 15px;
+    color: #fff;
+}
+.rest-nums{
+    position: absolute;
+    height: 24px;
+    line-height: 24px;
+    color: #f00;
+    border-radius: 15px;
+    padding: 0 15px;
+    bottom: 10px;
+    background: #fff;
+    font-size: 14px;
+    left: 10px;
+}
+/* .comment-wrap::-webkit-scrollbar{
+	display: none;
+} */
+.commentinput{
+    /* cursor: pointer; */
+    position: absolute;
+    left: 0;
+    width: 102px;
+    height: 28px;
+    color: #4e6e8e;
+    display: inline-block;
+    border: 1px solid #000;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 200;
+    /* color: #fff; */
+    line-height: 21px;
+    vertical-align: middle;
+    padding: 0 8px 0 32px;
+    outline: none;
+    /* transition: all .2s ease; */
+    background: hsla(0,0%,100%,.2) 7px 7px no-repeat; 
+     /* background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAAOCAYAAAAfSC3RAAAAAXNSR0IArs4c6QAAARtJREFUKBWNkrtKA0EUQJ21UNxC0igWwS8wjZYR7WzETskn5AP8KyHfkGC6dFa2QrBTsLNQ13PGvZuHJHrhcGfuY+9jNm3MSVVVR1yPYQ8KeIEHmKSUvtCNJE8k7KCuYAvG8AyfcAAn0IIBya/omZDYg3PIH5p5fk7YO9CHzfAVXGzPSiO+WIVjXmO33Smcht05nGm8KikC0fd1bDaZuA/OtFb48BsBdug+8uacy0X8Rz4IytuNlbu9tUKl0gAqv6tNdHBX/pcY8xhBJk6gVW837AsaXxuDicNwFJS25wF0CbiE3XByLuGM+w24C/+oLM2DE+Dj+k4+j524CMX2hmDSNdxR7An9W+pK28se7Idwq24qLgetupuE7+IbtVttOY5tZSwAAAAASUVORK5CYII=); */
+    background-size: 14px 14px;
+}
+canvas {
+    display: block;
+    position: absolute;
+    bottom: 80px;
+    right: -50px;
+    z-index: 20;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.footer {
+    position: absolute;
+    right:60px;
+    bottom: 14px;
+    width: 140px;
+    z-index: 25;
+}
+.journal-reward {
+    position: absolute;
+    bottom: 0;
+    right:10px;     
+    width: 40px;
+    /* display: block; */
+    z-index: 21;
+}
+
+/* .m {
+    width: 750px;
+    height: 1334px;
+    margin-left: auto;
+    margin-right: auto;
+} */

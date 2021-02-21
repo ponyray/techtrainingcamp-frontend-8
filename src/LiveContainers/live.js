@@ -1,47 +1,44 @@
-import axios from 'axios';
-import React, { Component, Fragment} from 'react';
+
+import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import 'xgplayer';
+import HlsPlayer from 'xgplayer-hls'
+import './style.css'
+import Livecomments from './comments/liveComments'
+
+
 
 class Live extends Component {
-    constructor(props) {
-        super(props);
 
-        this.state = {
-                // sign : 'a82d0d5e-9c55-4186-b443-c891f1221995114135149123114135149123'
-        }
+    state = {
+        liveNum: 111,
     }
-
-    getVideoJson () {
-        
-        var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.props.sign
-        axios.get(url)
-            .then( (res) => {
-                console.log(res)
-                // console.log(res.data.data.video.id)
-            })
+    componentDidMount() {
+        let player = new HlsPlayer({
+            id: 'liveplay',
+            url: 'http://bytedancecamp.rooftopj.cn/hls/hello.m3u8',
+            isLive: true,
+            autoplay: true,
+            playsinline: true,
+            height: window.innerHeight,
+            width: window.innerWidth,
+            controls: false
+        })
     }
-
-    componentWillMount() {
-        var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
-        axios.get(url)
-            .then( (res) => {
-                console.log(res)
-                if(res.data.code === 203) {
-                    // alert("请登录")
-                    this.props.history.push('/login');
-                }
-            })
-    }
-
     render() {
+        console.log("渲染了一次")
+        const { liveNum } = this.state
+        const { userName } = this.props.location.state
         return (
             <Fragment>
                 <div>
-                    Live
-                    {this.getVideoJson()}
-                    <br></br>
-                    <Link to='/'>
-                        <button >返回点播</button>
+                    <div className="header">
+                        <img className="headerLeft" src="./header-left.png" />
+                    </div>
+                    <div id="liveplay" />
+                    <Livecomments userName={userName} liveNum={liveNum} />
+                    <Link to='/' >
+                        <img className="exit-btn" src="./exit.png" alt="退出" />
                     </Link>
                 </div>
             </Fragment>

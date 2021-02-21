@@ -1,4 +1,4 @@
-import React, { Component, Fragment} from 'react';
+import React, { Component, Fragment } from 'react';
 // import { EyeOutlined } from '@ant-design/icons';
 
 import icon from './img/favicon2.png';
@@ -10,9 +10,12 @@ import './style.css';
 class LiveEntrance extends Component {
 
     render() {
+        const {userName,sign} = this.props
+        console.log(userName)
         return (
             <Fragment>
-                <Link to='/live'>
+                {/* <Link to={`/live/?userName=${userName}&sign=${sign}`}> */}
+                <Link to={{ pathname: '/live', state: {userName: userName, sign:sign}}}>
                     <img src={icon} alt='' className='icon'></img >
                 </Link>
             </Fragment>
