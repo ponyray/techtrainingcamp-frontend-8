@@ -180,7 +180,7 @@ class Main extends Component {
           <Fragment>
             <div className="header">
               <div className="liveEntrance">
-                <LiveEntrance sign={sign} />
+                <LiveEntrance sign={sign} username={username} />
               </div>
               <div className="notice">
                 <p className="text">关注</p>
