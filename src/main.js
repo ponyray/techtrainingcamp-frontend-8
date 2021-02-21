@@ -36,6 +36,7 @@ class Main extends Component {
             likes: 2,
             comments: 3,
             isLike: 0,
+            userName:"游客",//新增
 
             sources : {
                 sd: {
@@ -210,7 +211,7 @@ class Main extends Component {
             <Fragment>
                 <div className='header'>
                     <div className='liveEntrance'>
-                        <LiveEntrance sign={this.state.sign} /></div>
+                        <LiveEntrance sign={this.state.sign} userName={this.state.userName}/></div>
                     <div className='notice'>
                         <p className='text'>关注</p>
                     </div>

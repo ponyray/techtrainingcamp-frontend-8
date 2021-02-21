@@ -41,7 +41,7 @@ class LoginPage extends Component {
                 if (res.data.code === 200) {
                     this.setState({
                         sign: res.data.data.sign
-                        
+                        //改一下要更新main的用户名和sign
                     })
                     alert("注册成功")
                     console.log(res.data.data.sign)
