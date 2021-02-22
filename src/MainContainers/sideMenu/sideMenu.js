@@ -31,8 +31,7 @@ class SideMenu extends Component {
     }
 
     getIconLikePath() {
-            console.log(this.state.isLike);
-            if ( this.state.isLike === 1) {
+            if ( this.props.isLike === 1) {
                 return <img src={icon_islike} alt='' className='icon'></img>
             } else {
                 return <img src={icon_dislike} alt='' className='icon'></img>
@@ -41,39 +40,25 @@ class SideMenu extends Component {
 
     changeLike() {
         var url = 'http://bytedancecamp.rooftopj.cn:8080/video/like/' + this.props.id + '/' + this.props.sign
+
         axios.get(url)
             .then( (res) => {
-                console.log(res)
-                console.log(res.data.code)
-                console.log('res.data.data.flag = '+res.data.data.flag);
                 if ( res.data.code === 203) {
-                    // alert("请登录")
-                    // this.props.history.push('/login');
-                    <a href='/login'></a>
+                    <a href='/'></a>
                 }
 
-                var tlikes = this.state.likes;
-                if(res.data.data.flag) {
-                    tlikes += 1
-                } else {
-                    tlikes -= 1
-                }
+                this.props.changeLikeFunc(res.data.data.flag);
 
-                this.setState({
-                    isLike: res.data.data.flag,
-                    likes: tlikes, 
-                })
         })
         if ( this.state.isLike === 1) {
-            console.log("点赞");
             return <img src={icon_islike} alt='' className='icon'></img>
         } else {
-            console.log("取消点赞");
             return <img src={icon_dislike} alt='' className='icon'></img>
         }
     }
-
+    
     componentDidMount() {
+        console.log("Sidemune componentDidMount");
         this.setState({
             id: this.props.id,
             sign: this.props.sign,
@@ -89,22 +74,24 @@ class SideMenu extends Component {
             <Fragment>
                 <div>
                     <div className='sideMenus' id='avatar'>
-                        <img src={icon_avatar} alt='' className='icon'></img>
+                        {/* <img src={icon_avatar} alt='' className='icon'></img> */}
+                        <img src={this.props.authorAvatarPath} alt='' className='icon'></img>
+                        
                     </div>
                     <div className='sideMenus' id='like' onClick={this.changeLike}>
                         {this.getIconLikePath()}
-                        {console.log("isLike = "+this.state.isLike)}
-                        <div id='Num'>{this.state.likes}</div>
-                        {console.log('likes = ' + this.state.likes)}
+                        {/* {console.log("isLike = "+this.props.isLike)} */}
+                        <div id='Num'>{this.props.likes}</div>
+                        {/* {console.log('likes = ' + this.props.likes)} */}
                     </div>
 
                     <div className='sideMenus' id='comment'>
                         <img src={icon_comment} alt='' className='icon'></img>
-                        <div id='Num'>{this.state.comments}</div>
+                        <div id='Num'>{this.props.comments}</div>
                     </div>
                     <div className='sideMenus' id='repost'>
                         <img src={icon_repost} alt='' className='icon'></img>
-                        <div id='Num'>{this.state.repost}</div>
+                        <div id='Num'>{this.props.repost}</div>
                     </div>
                 </div>
             </Fragment>

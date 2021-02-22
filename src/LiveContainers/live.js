@@ -7,7 +7,6 @@ import './style.css'
 import Livecomments from './comments/liveComments'
 
 
-
 class Live extends Component {
 
     state = {

@@ -7,6 +7,14 @@
     margin-top: 2px;
 }
 
+.sideMenus img {
+    border-radius:60px;
+}
+
+#avatar {
+    /* border: 1px solid red; */
+}
+
 #Num {
     /* border: 1px solid ; */
     text-align: center;

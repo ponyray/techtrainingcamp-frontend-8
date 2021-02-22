@@ -13,41 +13,44 @@ import { Link } from 'react-router-dom';
 import { getLastVideoAPI, getNextVideoAPI } from "./data-access/api/main";
 import { UserContext } from "./context";
 
-
-
 class Main extends Component {
 
     constructor(props) {
         super(props);
 
+        this.setSign = this.setSign.bind(this);
+        this.changeLike = this.changeLike.bind(this);
         this.getNextVideo = this.getNextVideo.bind(this);
         this.getLastVideo = this.getLastVideo.bind(this);
 
         this.state = {
-            // sign: '05f79045-1608-4c3d-b4ba-f078e140c7851141351484211413514842',
-            sign : '5bbe376f-4bc0-4f15-a8f3-f65e08bb3dc51141351484211413514842',
+            sign: '', 
             videoInstruction : "这是一个视频简介。",
-            id: 1,
-            author: "Group8你好",
+            id: 0,
+            authorAvatar: '',
+            author: "你好,这里是Group8",
             url: "",
             description: "Hi!!!",
             tagList: ["helloworld"],
-            likes: 1234,
-            comments: 5467,
+            likes: 0,
+            comments: 0,
             isLike: 0,
-            play_url: 'https://bytedancecamptiktok.oss-cn-hangzhou.aliyuncs.com/2021/02/01/2e0c1a02037c418aa5f476ccfeff26a2竖版小视频飞机拍摄.mp4',
-            // play_url: '',
+            play_url: 'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_hd.mp4',
         }
     }
 
+    setSign(sign) {
+        console.log("set sign = " + sign);
+        this.setState({
+            sign
+        })
+        console.log("this.state.sign = " + this.state.sign);
+    }
+
     getLastVideo() {
-        // alert('正在获取上一个视频')
         var url = 'http://bytedancecamp.rooftopj.cn:8080/video/lastVideo/' + this.state.sign
         axios.get(url)
             .then( (res) => {
-                console.log(res)
-
-                console.log(res.data.code)
 
                 switch (res.data.code) {
                     case 203: {
@@ -59,12 +62,7 @@ class Main extends Component {
                         alert(res.data.message);
                         break;
                     }
-                    default : {
-                        // console.log(res.data.data.video.id)
-                        // console.log(res.data.data.video.url)
-                        
-                        // console.log("url改变之前的url为")
-                        // console.log(this.state.play_url)                    
+                    default : {               
         
                         this.setState( () => {
                             return {
@@ -76,10 +74,10 @@ class Main extends Component {
                                 isLike: res.data.data.video.isLike,
                                 comments: res.data.data.video.commentNum,
                                 play_url: res.data.data.video.url,
+                                authorAvatar: res.data.data.video.authorAvatar,
                             }
-                        })                    
-                        // console.log('url改变完成')
-                        // console.log(this.state.play_url)
+                        })
+                        
                     }
 
                 }
@@ -87,25 +85,17 @@ class Main extends Component {
     }
 
     getNextVideo(){
-        // alert('正在获取下一个视频')
         var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
         axios.get(url)
             .then( (res) => {
-                console.log(res)
-                console.log(res.data.code)
 
                 switch (res.data.code) {
                     case 203 : {
                         alert("请登录")
-                        this.props.history.push('/login');
+                        this.props.history.push('/');
                         break;
                     }
-                    default : {
-                        // console.log(res.data.data.video.id)
-                        // console.log(res.data.data.video.url)
-                        
-                        // console.log("url改变之前的url为")
-                        // console.log(this.state.play_url)                    
+                    default : {                   
         
                         this.setState( () => {
                             return {
@@ -116,70 +106,39 @@ class Main extends Component {
                                 likes: res.data.data.video.likeNum,
                                 isLike: res.data.data.video.isLike,
                                 comments: res.data.data.video.commentNum,
-                                play_url: res.data.data.video.url
+                                play_url: res.data.data.video.url,
+                                authorAvatar: res.data.data.video.authorAvatar,
                             }
                         })
-                        // console.log('url改变完成')
-                        // console.log(this.state.play_url)
+
                     }
                 }
             })
     }
 
-    componentWillMount() {
-        // console.log('componentWillMount')
-
-        var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
-        axios.get(url)
-            .then( (res) => {
-                
-                console.log(res)
-                console.log(res.data.code)
-
-                switch (res.data.code) {
-                    case 203 : {
-                        alert("请登录")
-                        this.props.history.push('/login');
-                        break;
-                    }
-                    default : {
-                        // console.log(res.data.data.video.id)
-                        // console.log(res.data.data.video.url)
-                        
-                        // console.log("url改变之前的url为")
-                        // console.log(this.state.play_url)                    
-        
-                        this.setState( () => {
-                            return {
-                                id: res.data.data.video.id,
-                                author: res.data.data.video.authorName,
-                                description: res.data.data.video.description,
-                                tagList: res.data.data.video.tags,
-                                likes: res.data.data.video.likeNum,
-                                isLike: res.data.data.video.isLike,
-                                comments: res.data.data.video.commentNum,
-                                play_url: res.data.data.video.url
-                            }
-                        })
-                        // console.log('url改变完成')
-                        // console.log(this.state.play_url)
-                    }
-                }
-                
+    changeLike(flag) {
+        if(flag === 1 ) {
+            this.setState({
+                likes: this.state.likes + 1,
+                isLike: 1,
             })
+        }else {
+            this.setState({
+                likes: this.state.likes - 1,
+                isLike: 0,
+            })
+        }
     }
 
     componentDidMount() {
         var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
         axios.get(url)
             .then( (res) => {
-                console.log(res)
-                console.log(res.data.code)
 
                 switch (res.data.code) {
                     case 203 : {
                         alert("请登录")
-                        this.props.history.push('/login');
+                        this.props.history.push('/');
                         break;
                     }
                 }
@@ -193,6 +152,7 @@ class Main extends Component {
                         likes: res.data.data.video.likeNum,
                         comments: res.data.data.video.commentNum,
                         play_url: res.data.data.video.url,
+                        authorAvatar: res.data.data.video.authorAvatar,
                     }
                 })
 
@@ -211,8 +171,7 @@ class Main extends Component {
                     }else if(mySwiper.translate < -10){
                         this_temp.getNextVideo();
                     }else {
-                        console.log("mySwiper.translate = ");
-                        console.log(mySwiper.translate);
+                        console.log("mySwiper.translate = " + mySwiper.translate);
                     }
 
                     return false;
@@ -222,15 +181,18 @@ class Main extends Component {
 
     }
 
+
+
     render() {
         return (
 
             <UserContext.Consumer>
                 {({ sign, setSign, username, setUsername }) => (
                     <Fragment>
+
                         <div className='header'>
                             <div className='liveEntrance'>
-                                <LiveEntrance sign={this.state.sign} /></div>
+                                <LiveEntrance sign={sign} username={username} /></div>
                             <div className='notice'>
                                 <p className='text'>关注</p>
                             </div>
@@ -243,6 +205,8 @@ class Main extends Component {
                         <div className='videoPlay' id='vs'>
                             <div className='videoInstruction'>
                                 <VideoInstruction 
+                                    sign = {sign}
+                                    setSign = {this.setSign}
                                     author = {this.state.author}
                                     description = {this.state.description}
                                     tagList = {this.state.tagList}
@@ -255,7 +219,9 @@ class Main extends Component {
                                         likes = {this.state.likes}
                                         comments = {this.state.comments}
                                         repost  = {1235}
+                                        authorAvatarPath = {this.state.authorAvatar}
                                         isLike = {this.state.isLike}
+                                        changeLikeFunc={this.changeLike}
                                 />
                             </div>
                             <div className="swiper-container">
@@ -264,8 +230,8 @@ class Main extends Component {
                                         <video 
                                             className='video' 
                                             id='playWindow' 
-                                            // autoplay="autoplay" 
-                                            // loop="loop" 
+                                            autoplay="autoplay" 
+                                            loop="loop" 
                                             src={this.state.play_url } 
                                             controls
                                         >                                    
@@ -274,11 +240,9 @@ class Main extends Component {
                                 </div>
                             </div>
                         </div>
-                        
                     </Fragment>
                 )}
              </UserContext.Consumer>
-
         )
     }
 }

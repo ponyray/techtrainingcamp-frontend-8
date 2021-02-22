@@ -2,13 +2,12 @@ body {
     /* border: 1px solid blue; */
     background: white;
     margin: 0px;
-    /* margin-right: 0px;
-    margin-left: 0px; */
     width: 100%;
 }
 
 .header {
     /* border: 3px solid blue; */
+    /* position: relative; */
     height: 50px;
 }
 
@@ -62,8 +61,10 @@ body {
 .videoPlay {
     /* border: 1px solid red; */
     height: 650px;
-    position: relative;
+    width: 100%;
+    position: absolute;
     margin: 0px;
+    margin-top: 50px;
 }
 
 .videoPlay .swiper-container {

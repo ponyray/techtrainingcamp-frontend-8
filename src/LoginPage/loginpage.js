@@ -47,7 +47,7 @@ class LoginPage extends Component {
         alert("注册成功");
         console.log(res.data.data.sign);
         setSign(res.data.data.sign);
-        this.props.history.push("/");
+        this.props.history.push("/main");
       }
     });
   }
@@ -80,8 +80,7 @@ class LoginPage extends Component {
                 确认
               </button>
             )}
-          </UserContext.Consumer>
-          >
+          </UserContext.Consumer>    
         </div>
       </Fragment>
     );

@@ -19,8 +19,8 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/live" history={history} component={Live} />
-          <Route path="/login" history={history} component={LoginPage} />
-          <Route path="/" history={history} component={Main} />
+          <Route path="/main" history={history} component={Main} />
+          <Route path="/" history={history} component={LoginPage} />
         </Switch>
       </BrowserRouter>
     </UserContext.Provider>

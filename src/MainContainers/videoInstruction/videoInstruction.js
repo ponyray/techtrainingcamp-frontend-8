@@ -8,26 +8,42 @@ class VideoInstruction extends Component {
         super(props);
         this.state = {
             // Id:1,
-            author: "字节君",
-            description: "字节跳动八周年，不忘初心，Always Day1.",
-            tagList: ["#一个普通公司的8年","#初心","#使命"],
-            likes: 586892,
-            comments: 23456,
-            date: "2021年2月22日",
+            author: "",
+            description: "",
+            tagList: [""],
+            likes: 5868,
+            comments: 2456,
+            date: "",
         }
     }
 
     getDate() {
-        
+        var d = new Date(),
+            str = '';
+        str += d.getFullYear() + '年'; //获取当前年份 
+        str += d.getMonth() + 1 + '月'; //获取当前月份（0——11） 
+        str += d.getDate() + '日';
+        this.setState({
+            date: str
+        })
     }
 
     
 
     showTags(){
-        // const TagSign = "#"
         return this.props.tagList.map( (value, index) => {
-            return <p>#{value}</p>
+            return <p style={{marginRight: 7}}>#{value + ' '}</p>
         })
+    }
+
+    componentDidMount() {
+        // console.log("VideoInstruction componentDidMount");
+        this.getDate();
+        this.props.setSign(this.props.sign);
+    }
+
+    componentWillMount() {
+        // console.log("VideoInstruction componentWillMount");
     }
 
     render() {
@@ -39,7 +55,6 @@ class VideoInstruction extends Component {
                             {'@' + this.props.author}
                         </div>
                         <div id='date'>
-                            {this.getDate()}
                             {'  · ' + this.state.date}
                         </div>
                     </div>
