@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react';
-import Player from 'xgplayer';
+
 import axios from 'axios';
 import Swiper from 'swiper/bundle';
 
@@ -20,7 +20,7 @@ class Main extends Component {
 
         this.state = {
             // sign: '05f79045-1608-4c3d-b4ba-f078e140c7851141351484211413514842',
-            sign : '',
+            sign : '5bbe376f-4bc0-4f15-a8f3-f65e08bb3dc51141351484211413514842',
             videoInstruction : "这是一个视频简介。",
             id: 1,
             author: "Group8你好",
