@@ -3,6 +3,7 @@ import React, { Component, Fragment} from 'react';
 // import './style.css';
 
 class PlayWindow extends Component {
+    computer;
 
     render() {
         return (

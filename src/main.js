@@ -10,6 +10,11 @@ import VideoInstruction from './MainContainers/videoInstruction/videoInstruction
 import './style.css';
 import { Link } from 'react-router-dom';
 
+import { getLastVideoAPI, getNextVideoAPI } from "./data-access/api/main";
+import { UserContext } from "./context";
+
+
+
 class Main extends Component {
 
     constructor(props) {
@@ -219,55 +224,61 @@ class Main extends Component {
 
     render() {
         return (
-            <Fragment>
-                <div className='header'>
-                    <div className='liveEntrance'>
-                        <LiveEntrance sign={this.state.sign} /></div>
-                    <div className='notice'>
-                        <p className='text'>关注</p>
-                    </div>
-                    {/* <div className='getVideo'>
-                        <button className='btn' id='getLastVideo' onClick={this.getLastVideo}>上</button>
-                        <button className='btn' id='getNextVideo' onClick={this.getNextVideo}>下</button>
-                    </div> */}
-                </div>
-                
-                <div className='videoPlay' id='vs'>
-                    <div className='videoInstruction'>
-                        <VideoInstruction 
-                            author = {this.state.author}
-                            description = {this.state.description}
-                            tagList = {this.state.tagList}
-                        />
-                    </div>
-                    <div className='sideMenu'>
-                        <SideMenu
-                                id = {this.state.id}
-                                sign = {this.state.sign}
-                                likes = {this.state.likes}
-                                comments = {this.state.comments}
-                                repost  = {1235}
-                                isLike = {this.state.isLike}
-                        />
-                    </div>
-                    <div className="swiper-container">
-                        <div className="swiper-wrapper">
-                            <div className="swiper-slide" id="mse">
-                                <video 
-                                    className='video' 
-                                    id='playWindow' 
-                                    // autoplay="autoplay" 
-                                    // loop="loop" 
-                                    src={this.state.play_url } 
-                                    controls
-                                >                                    
-                                </video>
+
+            <UserContext.Consumer>
+                {({ sign, setSign, username, setUsername }) => (
+                    <Fragment>
+                        <div className='header'>
+                            <div className='liveEntrance'>
+                                <LiveEntrance sign={this.state.sign} /></div>
+                            <div className='notice'>
+                                <p className='text'>关注</p>
+                            </div>
+                            {/* <div className='getVideo'>
+                                <button className='btn' id='getLastVideo' onClick={this.getLastVideo}>上</button>
+                                <button className='btn' id='getNextVideo' onClick={this.getNextVideo}>下</button>
+                            </div> */}
+                        </div>
+                        
+                        <div className='videoPlay' id='vs'>
+                            <div className='videoInstruction'>
+                                <VideoInstruction 
+                                    author = {this.state.author}
+                                    description = {this.state.description}
+                                    tagList = {this.state.tagList}
+                                />
+                            </div>
+                            <div className='sideMenu'>
+                                <SideMenu
+                                        id = {this.state.id}
+                                        sign = {this.state.sign}
+                                        likes = {this.state.likes}
+                                        comments = {this.state.comments}
+                                        repost  = {1235}
+                                        isLike = {this.state.isLike}
+                                />
+                            </div>
+                            <div className="swiper-container">
+                                <div className="swiper-wrapper">
+                                    <div className="swiper-slide" id="mse">
+                                        <video 
+                                            className='video' 
+                                            id='playWindow' 
+                                            // autoplay="autoplay" 
+                                            // loop="loop" 
+                                            src={this.state.play_url } 
+                                            controls
+                                        >                                    
+                                        </video>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                
-            </Fragment>
+                        
+                    </Fragment>
+                )}
+             </UserContext.Consumer>
+
         )
     }
 }
