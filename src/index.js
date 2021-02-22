@@ -10,10 +10,11 @@ import LoginPage from './LoginPage/loginpage';
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <Switch>  
+      <Switch>
         <Route path='/live' component={Live} />
-        <Route path='/login' component={LoginPage} />
-        <Route path='/' component={Main} />
+        <Route path='/videoplay' component={Main} />
+        <Route path='/' component={LoginPage} />
+        
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

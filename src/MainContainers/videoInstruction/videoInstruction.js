@@ -13,7 +13,7 @@ class VideoInstruction extends Component {
             tagList: ["#一个普通公司的8年","#初心","#使命"],
             likes: 586892,
             comments: 23456,
-            date: "2021年2月4日",
+            date: "2021年2月22日",
         }
     }
 

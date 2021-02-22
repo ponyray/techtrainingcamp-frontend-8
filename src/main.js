@@ -1,21 +1,14 @@
 import React, { Component, Fragment } from 'react';
-import Player from 'griffith';
-// import Player from 'xgplayer';
+import Player from 'xgplayer';
 import axios from 'axios';
+import Swiper from 'swiper/bundle';
 
 import LiveEntrance from './MainContainers/header/liveEntrance';
-// import Search from './MainContainers/header/search';
-// import PlayWindow from './MainContainers/playWindow/playWindow';
 import SideMenu from './MainContainers/sideMenu/sideMenu';
 import VideoInstruction from './MainContainers/videoInstruction/videoInstruction';
 
 import './style.css';
 import { Link } from 'react-router-dom';
-
-// let player = new Player({
-//     id: 'vs',
-//     url: 'https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-720p.mp4'
-//   });
 
 class Main extends Component {
 
@@ -26,32 +19,21 @@ class Main extends Component {
         this.getLastVideo = this.getLastVideo.bind(this);
 
         this.state = {
-            sign: '90f47aab-181d-447a-835a-4430bf27f14c11185932311118593231',
+            // sign: '05f79045-1608-4c3d-b4ba-f078e140c7851141351484211413514842',
+            sign : '',
             videoInstruction : "这是一个视频简介。",
             id: 1,
-            author: "字节君",
-            url: "x×.xx.xx/video / 1.mp4",
-            description: "字节跳动8周年,不忘初心,Always Day1",
-            tagList: ["一个普通公司的8年"],
-            likes: 2,
-            comments: 3,
+            author: "Group8你好",
+            url: "",
+            description: "Hi!!!",
+            tagList: ["helloworld"],
+            likes: 1234,
+            comments: 5467,
             isLike: 0,
-
-            sources : {
-                sd: {
-                // play_url: 'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_sd.mp4',
-                // play_url: 'https://sf1-hscdn-tos.pstatp.com/obj/media-fe/xgplayer_doc_video/mp4/xgplayer-demo-720p.mp4',
-                // play_url: 'https://bytedancecamptiktok.oss-cn-hangzhou.aliyuncs.com/2021/02/01/5d196a71a5b1465a90b2e1842a35deb2%E7%AB%96%E7%89%88%E8%A7%86%E9%A2%91%E5%90%88%E9%9B%86.mp4'
-                play_url: 'https://bytedancecamptiktok.oss-cn-hangzhou.aliyuncs.com/2021/02/01/2e0c1a02037c418aa5f476ccfeff26a2竖版小视频飞机拍摄.mp4'
-                // play_url : "123"
-                // play_url: "123456"
-                },
-            }
+            play_url: 'https://bytedancecamptiktok.oss-cn-hangzhou.aliyuncs.com/2021/02/01/2e0c1a02037c418aa5f476ccfeff26a2竖版小视频飞机拍摄.mp4',
+            // play_url: '',
         }
     }
-    
-    // getVideoInfo(){
-    // }
 
     getLastVideo() {
         // alert('正在获取上一个视频')
@@ -73,11 +55,11 @@ class Main extends Component {
                         break;
                     }
                     default : {
-                        console.log(res.data.data.video.id)
-                        console.log(res.data.data.video.url)
+                        // console.log(res.data.data.video.id)
+                        // console.log(res.data.data.video.url)
                         
-                        console.log("url改变之前的url为")
-                        console.log(this.state.sources.sd.play_url)                    
+                        // console.log("url改变之前的url为")
+                        // console.log(this.state.play_url)                    
         
                         this.setState( () => {
                             return {
@@ -88,15 +70,11 @@ class Main extends Component {
                                 likes: res.data.data.video.likeNum,
                                 isLike: res.data.data.video.isLike,
                                 comments: res.data.data.video.commentNum,
-                                sources: {
-                                    sd: {
-                                        play_url: res.data.data.video.url
-                                    }
-                                }
+                                play_url: res.data.data.video.url,
                             }
                         })                    
-                        console.log('url改变完成')
-                        console.log(this.state.sources.sd.play_url)
+                        // console.log('url改变完成')
+                        // console.log(this.state.play_url)
                     }
 
                 }
@@ -109,7 +87,6 @@ class Main extends Component {
         axios.get(url)
             .then( (res) => {
                 console.log(res)
-
                 console.log(res.data.code)
 
                 switch (res.data.code) {
@@ -119,11 +96,11 @@ class Main extends Component {
                         break;
                     }
                     default : {
-                        console.log(res.data.data.video.id)
-                        console.log(res.data.data.video.url)
+                        // console.log(res.data.data.video.id)
+                        // console.log(res.data.data.video.url)
                         
-                        console.log("url改变之前的url为")
-                        console.log(this.state.sources.sd.play_url)                    
+                        // console.log("url改变之前的url为")
+                        // console.log(this.state.play_url)                    
         
                         this.setState( () => {
                             return {
@@ -134,75 +111,110 @@ class Main extends Component {
                                 likes: res.data.data.video.likeNum,
                                 isLike: res.data.data.video.isLike,
                                 comments: res.data.data.video.commentNum,
-                                sources: {
-                                    sd: {
-                                        play_url: res.data.data.video.url
-                                    }
-                                }
+                                play_url: res.data.data.video.url
                             }
-                        })                    
-                        console.log('url改变完成')
-                        console.log(this.state.sources.sd.play_url)
+                        })
+                        // console.log('url改变完成')
+                        // console.log(this.state.play_url)
                     }
                 }
             })
     }
 
-
     componentWillMount() {
+        // console.log('componentWillMount')
 
-        console.log('componentWillMount')
-        // console.log(this.state.sources.sd.play_url)
-
-        // var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
-        // axios.get(url)
-        //     .then( (res) => {
-        //         console.log(res)
-        //         console.log(res.data.data.video.id)
-
-        //         console.log(res.data.data.video.url)
+        var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
+        axios.get(url)
+            .then( (res) => {
                 
-        //         console.log("url改变之前的url为")
-        //         console.log(this.state.sources.sd.play_url)
-                
+                console.log(res)
+                console.log(res.data.code)
 
-        //         this.setState( () => {
-        //             return {
-        //                 Id: res.data.data.video.id,
-        //                 author: res.data.data.video.authorName,
-        //                 description: res.data.data.video.description,
-        //                 tagList: res.data.data.video.tags,
-        //                 likes: res.data.data.video.likeNum,
-        //                 comments: res.data.data.video.commentNum,
-        //                 sources: {
-        //                     sd: {
-        //                         play_url: res.data.data.video.url
-        //             }
-        //         }
-        //             }
-        //         })
+                switch (res.data.code) {
+                    case 203 : {
+                        alert("请登录")
+                        this.props.history.push('/login');
+                        break;
+                    }
+                    default : {
+                        // console.log(res.data.data.video.id)
+                        // console.log(res.data.data.video.url)
+                        
+                        // console.log("url改变之前的url为")
+                        // console.log(this.state.play_url)                    
+        
+                        this.setState( () => {
+                            return {
+                                id: res.data.data.video.id,
+                                author: res.data.data.video.authorName,
+                                description: res.data.data.video.description,
+                                tagList: res.data.data.video.tags,
+                                likes: res.data.data.video.likeNum,
+                                isLike: res.data.data.video.isLike,
+                                comments: res.data.data.video.commentNum,
+                                play_url: res.data.data.video.url
+                            }
+                        })
+                        // console.log('url改变完成')
+                        // console.log(this.state.play_url)
+                    }
+                }
                 
-        //         console.log('url改变完成')
-        //         console.log(this.state.sources.sd.play_url)
-        //     })
+            })
     }
 
     componentDidMount() {
-        // var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
-        // axios.get(url)
-        //     .then( (res) => {
-        //         console.log(res)
+        var url = 'http://bytedancecamp.rooftopj.cn:8080/video/getNewVideo/' + this.state.sign
+        axios.get(url)
+            .then( (res) => {
+                console.log(res)
+                console.log(res.data.code)
 
-        //         console.log(res.data.code)
+                switch (res.data.code) {
+                    case 203 : {
+                        alert("请登录")
+                        this.props.history.push('/login');
+                        break;
+                    }
+                }
 
-        //         switch (res.data.code) {
-        //             case 203 : {
-        //                 alert("请登录")
-        //                 this.props.history.push('/login');
-        //                 break;
-        //             }
-        //         }
-        //     })
+                this.setState( () => {
+                    return {
+                        id: res.data.data.video.id,
+                        author: res.data.data.video.authorName,
+                        description: res.data.data.video.description,
+                        tagList: res.data.data.video.tags,
+                        likes: res.data.data.video.likeNum,
+                        comments: res.data.data.video.commentNum,
+                        play_url: res.data.data.video.url,
+                    }
+                })
+
+            })
+
+        var this_temp = this;
+        var mySwiper = new Swiper ('.swiper-container', {
+            
+            direction: 'vertical', // 垂直切换选项
+            on: {
+                touchEnd: function(swiper, event) {
+
+                    if(mySwiper.translate > 10) {
+                        this_temp.getLastVideo();
+
+                    }else if(mySwiper.translate < -10){
+                        this_temp.getNextVideo();
+                    }else {
+                        console.log("mySwiper.translate = ");
+                        console.log(mySwiper.translate);
+                    }
+
+                    return false;
+                },
+            },
+        })
+
     }
 
     render() {
@@ -214,27 +226,18 @@ class Main extends Component {
                     <div className='notice'>
                         <p className='text'>关注</p>
                     </div>
-                    <div className='getVideo'>
+                    {/* <div className='getVideo'>
                         <button className='btn' id='getLastVideo' onClick={this.getLastVideo}>上</button>
                         <button className='btn' id='getNextVideo' onClick={this.getNextVideo}>下</button>
-                    </div>
-                </div>
-                <div class='videoPlay' id='vs'>
-                    {console.log('视频加载开始')}
-                    <video id='playWindow' src={this.state.sources.sd.play_url} controls></video>
-                    {console.log('视频加载结束')}
-                    {/* <div className='play'>
-                        {console.log('视频加载开始')}
-                        <Player sources={this.state.sources} />
-                        <video id='playWindow' src={this.state.sources.sd.play_url} controls></video>
-                        {console.log('视频加载结束')}
                     </div> */}
+                </div>
+                
+                <div className='videoPlay' id='vs'>
                     <div className='videoInstruction'>
                         <VideoInstruction 
                             author = {this.state.author}
                             description = {this.state.description}
                             tagList = {this.state.tagList}
-                            
                         />
                     </div>
                     <div className='sideMenu'>
@@ -247,7 +250,23 @@ class Main extends Component {
                                 isLike = {this.state.isLike}
                         />
                     </div>
+                    <div className="swiper-container">
+                        <div className="swiper-wrapper">
+                            <div className="swiper-slide" id="mse">
+                                <video 
+                                    className='video' 
+                                    id='playWindow' 
+                                    // autoplay="autoplay" 
+                                    // loop="loop" 
+                                    src={this.state.play_url } 
+                                    controls
+                                >                                    
+                                </video>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                
             </Fragment>
         )
     }

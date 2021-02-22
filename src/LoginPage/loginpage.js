@@ -45,9 +45,13 @@ class LoginPage extends Component {
                     })
                     alert("注册成功")
                     console.log(res.data.data.sign)
-                    this.props.history.push('/');
+                    // this.props.history.push('/videoplay');
                 }
             })
+    }
+
+    componentDidMount() {
+        // alert("login");
     }
 
     render() {

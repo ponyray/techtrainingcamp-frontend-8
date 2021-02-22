@@ -43,9 +43,23 @@
    npm install griffith//这是我找到的另一个视频播放器
    ```
 
+5. `Swiper`滑动插件
+
+   ``` 
+   npm i swiper --save
+   ```
+
+    
+
+6. `react-pullload` 插件
+
+   ``` 
+   npm install --save react-pullload
+   ```
+
    
 
-5. 如有遗漏的，请根据报错提示安装对应的库。
+7. 如有遗漏的，请根据报错提示安装对应的库。
 
 # 三、记录
 
