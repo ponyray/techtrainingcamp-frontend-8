@@ -11,18 +11,19 @@ import {
 } from "@ant-design/icons";
 import { getCommentsAPI } from "../../../data-access/api/video-comment";
 
-export default function CommentHeader({ videoId, closeComments }) {
+export default function CommentHeader({ videoId }) {
   const [commentNum, setCommentNum] = useState(null);
 
   getCommentsAPI(videoId, 1).then((resData) => {
     setCommentNum(resData.total);
+    console.log(`commentNum = ${commentNum}`);
   });
   return (
     <div className="comment-header">
       <div>
         <span>{commentNum}</span>
       </div>
-      <button onClick={closeComments}>close</button>
+      {/* <button onClick={closeComments}>close</button> */}
     </div>
   );
 }
