@@ -21,27 +21,27 @@
 
 #description {
     /* border: 3px solid green; */
-    height: 0px;
+    /* height: 0px; */
     margin-left: 50px;
 }
 
 #tagList {
-    position: absolute;
+    /* position: absolute; */
     margin-top: 5px;
 }
 
 .brief .animate {
             /* border: 1px solid white; */
             width: 100%;
-            margin-top: -1px;
+            /* margin-top: -1px; */
             padding-left: 10px;
             display: inline-block;
             white-space: nowrap;
-            animation: 5s wordsLoop linear infinite normal;
+            /* animation: 5s wordsLoop linear infinite normal; */
 }
 
 
-@keyframes wordsLoop {
+/* @keyframes wordsLoop {
     0% {
         transform: translateX(10px);
         -webkit-transform: translateX(10px);
@@ -61,4 +61,4 @@
         transform: translateX(-100%);
         -webkit-transform: translateX(-100%);
     }
-}
+} */
