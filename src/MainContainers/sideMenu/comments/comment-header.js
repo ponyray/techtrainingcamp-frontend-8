@@ -10,6 +10,7 @@ import {
   LikeFilled,
 } from "@ant-design/icons";
 import { getCommentsAPI } from "../../../data-access/api/video-comment";
+import styled from "styled-components";
 
 export default function CommentHeader({ videoId }) {
   const [commentNum, setCommentNum] = useState(null);
@@ -18,12 +19,20 @@ export default function CommentHeader({ videoId }) {
     setCommentNum(resData.total);
     console.log(`commentNum = ${commentNum}`);
   });
+
+  const CommentHeaderWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  const CommentHeaderContainer = styled.span`
+    font-weight: bold;
+  `;
   return (
-    <div className="comment-header">
-      <div>
-        <span>{commentNum}</span>
-      </div>
+    <CommentHeaderWrapper>
+      <CommentHeaderContainer>{commentNum} 条评论</CommentHeaderContainer>
       {/* <button onClick={closeComments}>close</button> */}
-    </div>
+    </CommentHeaderWrapper>
   );
 }

@@ -1,160 +1,113 @@
-import React, { ReactDOM } from "react";
-import { ListView } from "antd-mobile";
-import CommentItem from "./comment-item";
+import React from "react";
+// import 'antd/dist/antd.css';
+import { List, message, Avatar, Spin } from "antd";
+
 import { getCommentsAPI } from "../../../data-access/api/video-comment";
-import CommentHeader from "./comment-header";
+import InfiniteScroll from "react-infinite-scroller";
+import CommentItem from "./comment-item";
+import styled from "styled-components";
 
-function MyBody(props) {
-  return (
-    <div className="am-list-body my-body">
-      <span style={{ display: "none" }}>you can custom body wrap element</span>
-      {props.children}
-    </div>
-  );
-}
+const fakeDataUrl =
+  "https://randomuser.me/api/?results=5&inc=name,gender,email,nat&noinfo";
 
-let pageIndex = 1;
-
-const dataBlobs = {};
-let sectionIDs = [];
-let rowIDs = [];
-
-let commentsNum = -1;
-
-function getComments(videoId, pIndex = 0) {
-  console.log(pageIndex);
-  pIndex--;
-  const sectionName = `Page ${pIndex}`;
-  sectionIDs.push(sectionName);
-  dataBlobs[sectionName] = sectionName;
-  rowIDs[pIndex] = [];
-
-  return getCommentsAPI(videoId, pIndex).then((resData) => {
-    commentsNum = resData.total;
-    resData.comments.forEach((element, index) => {
-      const rowName = `Page ${pIndex} Comment ${index}`;
-      rowIDs[pIndex].push(rowName);
-      dataBlobs[rowName] = element;
-    });
-    sectionIDs = [...sectionIDs];
-    rowIDs = [...rowIDs];
-  });
-}
-
-export default class CommentList extends React.Component {
-  constructor(props) {
-    super(props);
-    const getSectionData = (dataBlob, sectionID) => dataBlob[sectionID];
-    const getRowData = (dataBlob, sectionID, rowID) => dataBlob[rowID];
-
-    const dataSource = new ListView.DataSource({
-      getRowData,
-      getSectionHeaderData: getSectionData,
-      rowHasChanged: (row1, row2) => row1 !== row2,
-      sectionHeaderHasChanged: (s1, s2) => s1 !== s2,
-    });
-
-    this.state = {
-      dataSource,
-      isLoading: true,
-      hasMore: true,
-      height: (document.documentElement.clientHeight * 3) / 4,
-    };
-
-    this.loadData = this.loadData.bind(this)
-    this.loadNextPage = this.loadNextPage.bind(this)
-  }
+class CommentList extends React.Component {
+  state = {
+    data: [],
+    pageIndex: 1,
+    totalCommentsNum: -1,
+    loading: false,
+    hasMore: true,
+  };
 
   componentDidMount() {
-    // you can scroll to the specified position
-    // setTimeout(() => this.lv.scrollTo(0, 120), 800);
-    // simulate initial Ajax
-
-    console.log(`pageIndex = ${pageIndex}`);
-    if (pageIndex === 1) {
-      this.loadNextPage();
-    }
-    this.loadData(dataBlobs, sectionIDs, rowIDs);
+    console.log(`videoId = ${this.props.videoId}`);
+    console.log(`pageIndex = ${this.state.pageIndex}`);
+    getCommentsAPI(this.props.videoId, this.state.pageIndex).then((resData) => {
+      this.setState({
+        data: resData.comments,
+        pageIndex: this.state.pageIndex + 1,
+        totalCommentsNum: resData.total,
+      });
+      console.log("resData = ");
+      console.log(resData);
+      console.log(this.state.data);
+      console.log(this.state.totalCommentsNum);
+    });
   }
 
-  loadData (dataBlobs, sectionIDs, rowIDs) {
+  handleInfiniteOnLoad = () => {
+    if (this.state.hasMore === false) {
+      return
+    }
+    console.log("infinite-----");
+    let { data, pageIndex, totalCommentsNum } = this.state;
     this.setState({
-      dataSource: this.state.dataSource.cloneWithRowsAndSections(
-        dataBlobs,
-        sectionIDs,
-        rowIDs
-      ),
-      isLoading: false,
+      loading: true,
     });
-  };
-
-  loadNextPage () {
-    this.setState({ isLoading: true });
-    console.log("start loading");
-    getComments(this.props.videoId, pageIndex++).then(() => {
-      this.loadData(dataBlobs, sectionIDs, rowIDs);
-
-      console.log("loading finished");
-
-      if ((pageIndex - 1) * 10 >= commentsNum) {
-        this.setState({
-          hasMore: false,
-        });
-      }
-    });
-  };
-
-  onEndReached = (event) => {
-    // load new data
-    // hasMore: from backend data, indicates whether it is the last page, here is false
-    if (this.state.isLoading || !this.state.hasMore) {
+    if (data.length >= totalCommentsNum) {
+      console.log(`no more ${data.length}`);
+      message.warning("Infinite List loaded all");
+      this.setState({
+        hasMore: false,
+        loading: false,
+      });
       return;
     }
 
-    this.loadNextPage();
+    getCommentsAPI(this.props.videoId, pageIndex).then((resData) => {
+      data = data.concat(resData.comments);
+      console.log(data);
+      this.setState({
+        data,
+        loading: false,
+        pageIndex: pageIndex + 1,
+      });
+    });
+    console.log(totalCommentsNum)
   };
 
   render() {
-    const separator = (sectionID, rowID) => (
-      <div
-        key={`${sectionID}-${rowID}`}
-        style={{
-          backgroundColor: "#F5F5F9",
-          height: 8,
-          borderTop: "1px solid #ECECED",
-          borderBottom: "1px solid #ECECED",
-        }}
-      />
-    );
-    const row = (rowData, sectionID, rowID) => {
-      // console.log(rowData);
-      // console.log(sectionID);
-      // console.log(rowID);
-
-      return <CommentItem key={rowID} comment={rowData}></CommentItem>;
-    };
-
+    const InfiniteContainer = styled.div`
+      height: 100%;
+      padding: 8px 24px;
+      overflow: auto;
+      border: 1px solid #e8e8e8;
+      border-radius: 4px;
+    `;
     return (
-      <ListView
-        ref={(el) => (this.lv = el)}
-        style={{
-          height: "500px",
-          overflow: "auto",
-        }}
-        dataSource={this.state.dataSource}
-        renderFooter={() => (
-          <div style={{ padding: 30, textAlign: "center" }}>
-            {this.state.isLoading ? "Loading..." : "Loaded"}
-          </div>
-        )}
-        renderBodyComponent={() => <MyBody />}
-        renderRow={row}
-        renderSeparator={separator}
-        pageSize={12}
-        scrollRenderAheadDistance={500}
-        onEndReached={this.onEndReached}
-        onEndReachedThreshold={300}
-      />
+      <InfiniteContainer>
+        <InfiniteScroll
+          initialLoad={false}
+          pageStart={0}
+          loadMore={this.handleInfiniteOnLoad}
+          hasMore={!this.state.loading && this.state.hasMore}
+          useWindow={false}
+          loader={<Spin />}
+        >
+          <List
+            dataSource={this.state.data}
+            renderItem={(item) => {
+              // console.log("item = ");
+              // console.log(item);
+              return (
+                <List.Item key={item.id}>
+                  <CommentItem comment={item}></CommentItem>
+                </List.Item>
+              );
+            }}
+            bordered
+            style={{ height: "100%" }}
+          >
+            {/* {this.state.loading && this.state.hasMore && (
+              <div className="demo-loading-container">
+                <Spin />
+              </div>
+            )} */}
+          </List>
+        </InfiniteScroll>
+      </InfiniteContainer>
     );
   }
 }
+
+export default CommentList;

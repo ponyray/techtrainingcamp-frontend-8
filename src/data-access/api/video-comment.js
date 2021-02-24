@@ -15,6 +15,7 @@ export function getCommentsAPI(videoId, curPage) {
   });
 }
 export function postCommentAPI(sign, videoId, content) {
+  console.log(sign, videoId, content)
   return request({
     method: "post",
     url: "/video/comment",

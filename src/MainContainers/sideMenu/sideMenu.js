@@ -10,7 +10,6 @@ import icon_islike from "./img/islike.png";
 import icon_dislike from "./img/dislike.png";
 import icon_comment from "./img/comment.png";
 import icon_repost from "./img/repost.png";
-import Comments from "./comments/comments";
 import CommentHeader from "./comments/comment-header";
 import CommentList from "./comments/comment-list";
 import CommentInput from "./comments/comment-input";
@@ -130,15 +129,15 @@ class SideMenu extends Component {
             closable={true}
             visible={this.state.isCommentsOpen}
             onClose={this.setIsCommentsOpen(false)}
+            getContainer={false}
             height="70%"
-            header={<CommentHeader videoId={this.state.id}></CommentHeader>}
-            footer={<CommentInput videoId={this.state.id}></CommentInput>}
+            title={<CommentHeader videoId={this.props.id}></CommentHeader>}
+            footer={<CommentInput videoId={this.props.id}></CommentInput>}
             destroyOnClose={true}
             // mask={false}
-            useBodyScroll={false}
-            style={{zIndex: 2000, height: "500px"}}
+            style={{zIndex: 2000}}
           >
-            <CommentList videoId={this.state.id}></CommentList>
+            <CommentList videoId={this.props.id}></CommentList>
           </Drawer>
         </div>
       </Fragment>
