@@ -1,13 +1,15 @@
 import React, { createElement, useContext, useState } from "react";
 import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
-import { Comment, Tooltip, Avatar, Input } from "antd";
+import { Comment, Tooltip, Avatar, Input, Button } from "antd";
 import moment from "moment";
 import {
   DislikeOutlined,
   LikeOutlined,
   DislikeFilled,
   LikeFilled,
+  UpCircleFilled,
+  UpCircleOutlined,
 } from "@ant-design/icons";
 import { postCommentAPI } from "../../../data-access/api/video-comment";
 import { UserContext } from "../../../context";
@@ -20,8 +22,12 @@ export default function CommentInput({ videoId }) {
     postCommentAPI(sign, videoId, value);
   };
   return (
-    <div className="comment-input">
+    <div
+      className="comment-input"
+      style={{ display: "flex", justifyContent: "center" }}
+    >
       <Input
+        size="large"
         allowClear={true}
         placeholder={"留下你精彩的评论吧"}
         onChange={(e) => {
@@ -29,8 +35,16 @@ export default function CommentInput({ videoId }) {
           value = e.target.value;
           // console.log(value);
         }}
+        // style={{ height: "90%", width: "70%", marginRight: "10%" }}
+        style={{ marginRight: "10%" }}
       ></Input>
-      <button onClick={onClick}>13213212</button>
+      <Button
+        type="primary"
+        shape="circle"
+        size="large"
+        icon={<UpCircleOutlined />}
+        onClick={onClick}
+      />
     </div>
   );
 }

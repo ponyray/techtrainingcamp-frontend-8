@@ -133,6 +133,7 @@ class SideMenu extends Component {
             height="70%"
             title={<CommentHeader videoId={this.props.id}></CommentHeader>}
             footer={<CommentInput videoId={this.props.id}></CommentInput>}
+            // footerStyle={{height: "15%"}}
             destroyOnClose={true}
             // mask={false}
             style={{zIndex: 2000}}

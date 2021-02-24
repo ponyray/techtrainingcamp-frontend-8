@@ -28,6 +28,11 @@ class CommentList extends React.Component {
         pageIndex: this.state.pageIndex + 1,
         totalCommentsNum: resData.total,
       });
+      if (!this.state.totalCommentsNum) {
+        this.setState({
+          hasMore: false,
+        });
+      }
       console.log("resData = ");
       console.log(resData);
       console.log(this.state.data);
@@ -37,7 +42,7 @@ class CommentList extends React.Component {
 
   handleInfiniteOnLoad = () => {
     if (this.state.hasMore === false) {
-      return
+      return;
     }
     console.log("infinite-----");
     let { data, pageIndex, totalCommentsNum } = this.state;
@@ -63,7 +68,7 @@ class CommentList extends React.Component {
         pageIndex: pageIndex + 1,
       });
     });
-    console.log(totalCommentsNum)
+    console.log(totalCommentsNum);
   };
 
   render() {
