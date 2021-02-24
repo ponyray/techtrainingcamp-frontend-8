@@ -13,6 +13,9 @@ import { Link } from 'react-router-dom';
 import { getLastVideoAPI, getNextVideoAPI } from "./data-access/api/main";
 import { UserContext } from "./context";
 
+import icon_avatar from './img/favicon2.png';
+
+
 class Main extends Component {
 
     constructor(props) {
@@ -27,13 +30,13 @@ class Main extends Component {
             sign: '', 
             videoInstruction : "这是一个视频简介。",
             id: 0,
-            authorAvatar: '',
+            authorAvatar: {icon_avatar},
             author: "你好,这里是Group8",
             url: "",
             description: "Hi!!!",
             tagList: ["helloworld"],
-            likes: 0,
-            comments: 0,
+            likes: 999,
+            comments: 999,
             isLike: 0,
             play_url: 'https://zhstatic.zhihu.com/cfe/griffith/zhihu2018_hd.mp4',
         }
