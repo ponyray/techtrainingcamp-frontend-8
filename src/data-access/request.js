@@ -1,34 +1,36 @@
-import axios from 'axios';
-import history from '../utils/history'
+import axios from "axios";
+import history from "../utils/history";
 
 const instance = axios.create({
-  baseURL: 'http://bytedancecamp.rooftopj.cn:8080',
-  timeout: 5000
-})
+  baseURL: "http://bytedancecamp.rooftopj.cn:8080",
+  timeout: 5000,
+});
 
 // Add a request interceptor
 instance.interceptors.request.use(
-  config => {
+  (config) => {
     // do something before request is sent
-    return config
+    return config;
   },
-  error => {
+  (error) => {
     // do something with request error
-    console.error(error) // for debug
-    return Promise.reject(error)
+    console.error(error); // for debug
+    return Promise.reject(error);
   }
-)
+);
 
 // response interceptor
 instance.interceptors.response.use(
-  response => {
+  (response) => {
     const res = response.data;
 
     switch (res.code) {
       case 203: {
+        console.log(res);
         alert("请登录");
-        history.push('/login');
+        history.push("/login");
         window.location.reload(); // This may be better.
+        throw new Error("please login");
         break;
       }
       case 202: {
@@ -39,10 +41,10 @@ instance.interceptors.response.use(
 
     return res.data;
   },
-  error => {
-    console.error(error) // for debug
-    return Promise.reject(error)
+  (error) => {
+    console.error(error); // for debug
+    return Promise.reject(error);
   }
-)
+);
 
-export default instance.request; 
+export default instance.request;
