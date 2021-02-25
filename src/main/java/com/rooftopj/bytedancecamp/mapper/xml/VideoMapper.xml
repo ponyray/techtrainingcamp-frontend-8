@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rooftopj.bytedancecamp.mapper.VideoMapper">
+
+    <select id="getNewVideo" resultType="java.lang.Integer">
+            select id from video as tableA join (select round(rand()*(select max(id) from video where id not in
+                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+             )) as idd) as tableB on tableA.id>=tableB.idd where id not in
+                <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+              limit 1;
+    </select>
+</mapper>
